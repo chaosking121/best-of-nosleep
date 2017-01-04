@@ -6,7 +6,7 @@ def get_data():
 
 if __name__ == '__main__':
     import praw
-    from datetime import date
+    from datetime import datetime, timedelta
 
     reddit = praw.Reddit(**get_data())
     bons = reddit.subreddit('best_of_nosleep')
@@ -14,13 +14,22 @@ if __name__ == '__main__':
 
     posts = []
 
-    for submission in ns.top(time_filter = 'day', limit = 10):
+    # Three days was arbitrarily chosen so that the first batch of posts
+    # would be from 17/01/01.
+    three_days_ago = (datetime.utcnow() - timedelta(days = 3)).date()
 
-        if (submission.link_flair_text != 'Series') and (len(posts) < 3):
+    for submission in ns.top(time_filter = 'week', limit = 50):
+
+        post_date = datetime.utcfromtimestamp(submission.created_utc).date()
+
+        if ((post_date == three_days_ago)
+                and (submission.link_flair_text != 'Series')
+                and (len(posts) < 3)):
+
             posts.insert(0,
                 dict(
                     title = '[{}, +{}] "{}" by /u/{}'.format(
-                        date.today(),
+                        post_date,
                         submission.score,
                         submission.title,
                         submission.author)[0:300],

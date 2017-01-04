@@ -5,7 +5,7 @@ Bot that x-posts from /r/nosleep to /r/best_of_nosleep
 
 There's a lot of not-so-great stories on /r/nosleep. This script arbitrarily selects the best ones and post them to /r/best_of_nosleep.
 
-Right now, the bot runs as follows: every night at midnight Eastern Time, the bot will pull the top 10 posts from /r/nosleep and then, if the post does not have the 'Series' flair, it will add it to a stack. This continued until the bot goes through all 10 posts or adds the third post to the stack. Once that ends, it will begin popping posts off the stack and posting them to /r/best_of_nosleep using non-participation links with titles of the format `[$iso-format-date, +$score] "$original-title" by /u/$original-poster`.
+Right now, the bot runs as follows: every day at 9 AM Eastern Time, the bot will pull a list of the top 50 posts in the last week. It will begin searching through the posts and add matching posts to a stack if: the post was made four calender days ago (17/01/01 posts were posted on 17/01/04) and the post does NOT have the 'Series' flair. Once the stack has 3 posts, the bot will begin popping posts off the stack and posting them to /r/best_of_nosleep using non-participation links with titles of the format `[$iso-format-date, +$score] "$original-title" by /u/$original-poster`.
 
 
 # Usage

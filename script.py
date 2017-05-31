@@ -6,7 +6,11 @@ def get_data():
 
 if __name__ == '__main__':
     import praw
+    import os, os.path
     from datetime import datetime, timedelta
+
+    # Change the working directory to the script directory
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     reddit = praw.Reddit(**get_data())
     bons = reddit.subreddit('best_of_nosleep')
